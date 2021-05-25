@@ -4,10 +4,10 @@ import os
 import random
 import xml.etree.ElementTree as ET
 
-CLDR_SUBDIVISION_FILENAME = 'unicode_cldr_subdivision_codes.xml'
-TARGET_URL = os.environ['TARGET_URL']
-TEST_LOCATION_HEADER_NAME = os.environ['TEST_LOCATION_HEADER_NAME']
-TEST_USER_AGENTS = [
+_CLDR_SUBDIVISION_FILENAME = 'unicode_cldr_subdivision_codes.xml'
+_TARGET_URL = os.environ['TARGET_URL']
+_TEST_LOCATION_HEADER_NAME = os.environ['TEST_LOCATION_HEADER_NAME']
+_TEST_USER_AGENTS = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:53.0) Gecko/20100101 Firefox/53.0',
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.79 Safari/537.36 Edge/14.14393',
@@ -19,62 +19,62 @@ TEST_USER_AGENTS = [
     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36',
     'Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko'
 ]
-TIMEOUT = float(os.environ['TIMEOUT'])
+_TIMEOUT = float(os.environ['TIMEOUT'])
 
 
 def parse_subdivision_codes_file():
-    tree = ET.parse(CLDR_SUBDIVISION_FILENAME)
+    tree = ET.parse(_CLDR_SUBDIVISION_FILENAME)
     root = tree.getroot()
     subgroups = root[1]
 
     return subgroups
 
 
-TEST_LOCATIONS = parse_subdivision_codes_file()
+_TEST_LOCATIONS = parse_subdivision_codes_file()
 
 
 @scenario()
 async def request_from_consistent_location_with_consistent_user_agent(session):
     headers = {
-        'User-Agent': TEST_USER_AGENTS[0], TEST_LOCATION_HEADER_NAME: 'US, USCA'}
-    timeout = ClientTimeout(total=TIMEOUT)
+        'User-Agent': _TEST_USER_AGENTS[0], _TEST_LOCATION_HEADER_NAME: 'US, USCA'}
+    timeout = ClientTimeout(total=_TIMEOUT)
 
-    async with session.get(TARGET_URL, headers=headers, timeout=timeout) as resp:
+    async with session.get(_TARGET_URL, headers=headers, timeout=timeout) as resp:
         assert resp.status == 200
 
 
 @scenario()
 async def request_from_random_location_with_consistent_user_agent(session):
-    headers = {'User-Agent': TEST_USER_AGENTS[0],
-               TEST_LOCATION_HEADER_NAME: get_random_location()}
-    timeout = ClientTimeout(total=TIMEOUT)
+    headers = {'User-Agent': _TEST_USER_AGENTS[0],
+               _TEST_LOCATION_HEADER_NAME: get_random_location()}
+    timeout = ClientTimeout(total=_TIMEOUT)
 
-    async with session.get(TARGET_URL, headers=headers, timeout=timeout) as resp:
+    async with session.get(_TARGET_URL, headers=headers, timeout=timeout) as resp:
         assert resp.status == 200
 
 
 @scenario()
 async def request_from_consistent_location_with_random_user_agent(session):
     headers = {'User-Agent': get_random_user_agent(),
-               TEST_LOCATION_HEADER_NAME: 'US, USCA'}
-    timeout = ClientTimeout(total=TIMEOUT)
+               _TEST_LOCATION_HEADER_NAME: 'US, USCA'}
+    timeout = ClientTimeout(total=_TIMEOUT)
 
-    async with session.get(TARGET_URL, headers=headers, timeout=timeout) as resp:
+    async with session.get(_TARGET_URL, headers=headers, timeout=timeout) as resp:
         assert resp.status == 200
 
 
 @scenario()
 async def request_from_random_location_with_random_user_agent(session):
     headers = {'User-Agent': get_random_user_agent(),
-               TEST_LOCATION_HEADER_NAME: get_random_location()}
-    timeout = ClientTimeout(total=TIMEOUT)
+               _TEST_LOCATION_HEADER_NAME: get_random_location()}
+    timeout = ClientTimeout(total=_TIMEOUT)
 
-    async with session.get(TARGET_URL, headers=headers, timeout=timeout) as resp:
+    async with session.get(_TARGET_URL, headers=headers, timeout=timeout) as resp:
         assert resp.status == 200
 
 
 def get_random_location():
-    subgroup = random.choice(TEST_LOCATIONS)
+    subgroup = random.choice(_TEST_LOCATIONS)
     attributes = subgroup.attrib
     code = attributes['type']
     subdivisions = attributes['contains'].split(' ')
@@ -84,4 +84,4 @@ def get_random_location():
 
 
 def get_random_user_agent():
-    return random.choice(TEST_USER_AGENTS)
+    return random.choice(_TEST_USER_AGENTS)
