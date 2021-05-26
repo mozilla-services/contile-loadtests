@@ -5,8 +5,8 @@ import random
 import xml.etree.ElementTree as ET
 
 _CLDR_SUBDIVISION_FILENAME = 'unicode_cldr_subdivision_codes.xml'
-_TARGET_URL = os.environ['TARGET_URL']
-_TEST_LOCATION_HEADER_NAME = os.environ['TEST_LOCATION_HEADER_NAME']
+_TARGET_URL = os.environ.get('TARGET_URL', 'http://localhost:8000/v1/tiles')
+_TEST_LOCATION_HEADER_NAME = os.environ.get('TEST_LOCATION_HEADER_NAME', 'X-Test-Location')
 _TEST_USER_AGENTS = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:53.0) Gecko/20100101 Firefox/53.0',
@@ -19,7 +19,7 @@ _TEST_USER_AGENTS = [
     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36',
     'Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko'
 ]
-_TIMEOUT = float(os.environ['TIMEOUT'])
+_TIMEOUT = float(os.environ.get('TIMEOUT', 5.0))
 
 
 def parse_subdivision_codes_file():
