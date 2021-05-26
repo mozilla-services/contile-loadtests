@@ -22,7 +22,6 @@ RUN \
 
 # app install
 RUN \
-    ./apenv/bin/pip install pyasn1 && \
     ./apenv/bin/pip install -r requirements.txt && \
     apt-get purge -yq --auto-remove ${BUILD_DEPS} && \
     apt-get autoremove -yqq && \
