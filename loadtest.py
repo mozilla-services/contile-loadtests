@@ -55,7 +55,7 @@ _TEST_LOCATIONS = parse_subdivision_codes_file()
 
 
 @scenario()
-async def request_from_consistent_location_with_consistent_user_agent(session):  # noqa: E501
+async def request_from_consistent_location_with_consistent_user_agent(session):
     headers = {
         'User-Agent': _TEST_USER_AGENTS[0],
         _TEST_LOCATION_HEADER_NAME: 'US, USCA'
@@ -69,7 +69,7 @@ async def request_from_consistent_location_with_consistent_user_agent(session): 
 
 
 @scenario()
-async def request_from_random_location_with_consistent_user_agent(session):  # noqa: 501
+async def request_from_random_location_with_consistent_user_agent(session):
     headers = {
         'User-Agent': _TEST_USER_AGENTS[0],
         _TEST_LOCATION_HEADER_NAME: get_random_location()
@@ -84,7 +84,7 @@ async def request_from_random_location_with_consistent_user_agent(session):  # n
 
 
 @scenario()
-async def request_from_consistent_location_with_random_user_agent(session):  # noqa: 501
+async def request_from_consistent_location_with_random_user_agent(session):
     headers = {
         'User-Agent': get_random_user_agent(),
         _TEST_LOCATION_HEADER_NAME: 'US, USCA'
@@ -98,7 +98,7 @@ async def request_from_consistent_location_with_random_user_agent(session):  # n
 
 
 @scenario()
-async def request_from_random_location_with_random_user_agent(session):  # noqa: 501
+async def request_from_random_location_with_random_user_agent(session):
     headers = {
         'User-Agent': get_random_user_agent(),
         _TEST_LOCATION_HEADER_NAME: get_random_location()
