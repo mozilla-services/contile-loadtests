@@ -1,7 +1,11 @@
-from molotov import scenario
 from aiohttp import ClientTimeout
+from molotov import scenario
+from urllib.parse import urlparse
+import asyncio
 import os
 import random
+import socket
+import time
 import xml.etree.ElementTree as ET
 
 _CLDR_SUBDIVISION_FILENAME = 'unicode_cldr_subdivision_codes.xml'
@@ -65,7 +69,7 @@ async def request_from_consistent_location_with_consistent_user_agent(session):
     async with session.get(_TARGET_URL,
                            headers=headers,
                            timeout=timeout) as resp:
-        assert resp.status == 200
+        assert resp.ok
 
 
 @scenario()
@@ -79,8 +83,7 @@ async def request_from_random_location_with_consistent_user_agent(session):
     async with session.get(_TARGET_URL,
                            headers=headers,
                            timeout=timeout) as resp:
-
-        assert resp.status == 200
+        assert resp.ok
 
 
 @scenario()
@@ -94,7 +97,7 @@ async def request_from_consistent_location_with_random_user_agent(session):
     async with session.get(_TARGET_URL,
                            headers=headers,
                            timeout=timeout) as resp:
-        assert resp.status == 200
+        assert resp.ok
 
 
 @scenario()
@@ -108,7 +111,25 @@ async def request_from_random_location_with_random_user_agent(session):
     async with session.get(_TARGET_URL,
                            headers=headers,
                            timeout=timeout) as resp:
-        assert resp.status == 200
+        assert resp.ok
+
+
+@scenario()
+async def connect_and_idle(_session):
+    parsed_url = urlparse(_TARGET_URL)
+    host = parsed_url.netloc.split(':')[0]
+    port = parsed_url.port
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((host, port))
+
+    task = asyncio.create_task(loop_forever())
+    await task
+
+
+async def loop_forever():
+    while True:
+        time.sleep(100)
 
 
 def get_random_location():
