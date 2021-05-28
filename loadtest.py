@@ -149,7 +149,7 @@ async def request_with_random_non_firefox_user_agent(session):
                            timeout=timeout) as resp:
         # Contile should send an empty response to a request from a non-Firefox
         # user agent
-        assert resp.status == 204
+        assert resp.status == 403
 
 
 def get_random_location():
