@@ -93,7 +93,7 @@ async def request_from_consistent_location_with_consistent_firefox_user_agent(se
     async with session.get(_TARGET_URL,
                            headers=headers,
                            timeout=timeout) as resp:
-        assert resp.status == 200
+        assert resp.status in (200, 204), resp.status
 
 
 @scenario()
@@ -107,7 +107,7 @@ async def request_from_random_location_with_consistent_firefox_user_agent(sessio
     async with session.get(_TARGET_URL,
                            headers=headers,
                            timeout=timeout) as resp:
-        assert resp.status == 200
+        assert resp.status in (200, 204), resp.status
 
 
 @scenario()
@@ -121,7 +121,7 @@ async def request_from_consistent_location_with_random_firefox_user_agent(sessio
     async with session.get(_TARGET_URL,
                            headers=headers,
                            timeout=timeout) as resp:
-        assert resp.status == 200
+        assert resp.status in (200, 204), resp.status
 
 
 @scenario()
@@ -135,7 +135,7 @@ async def request_from_random_location_with_random_firefox_user_agent(session):
     async with session.get(_TARGET_URL,
                            headers=headers,
                            timeout=timeout) as resp:
-        assert resp.status == 200
+        assert resp.status in (200, 204), resp.status
 
 
 @scenario()
