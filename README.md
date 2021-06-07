@@ -14,10 +14,10 @@ $ pip install -r requirements.txt
 
 ## Usage:
 
-The following environment variables must be set:
-* `TIMEOUT`: The timeout (in seconds) for the request made to Contile
-* `TARGET_URL`: The URL of the endpoint to be load tested
-* `TEST_LOCATION_HEADER_NAME`: The of the HTTP header used to manually specify the location from which the request originated. This should match the value of CONTILE_LOCATION_TEST_HEADER on Contile
+The load tests make use of the following environment variables:
+* `TIMEOUT`: The timeout (in seconds) for the request made to Contile (defaults to 5)
+* `TARGET_URL`: The URL of the endpoint to be load tested (defaults to `http://localhost:8000/v1/tiles`)
+* `TEST_LOCATION_HEADER_NAME`: The of the HTTP header used to manually specify the location from which the request originated. This should match the value of CONTILE_LOCATION_TEST_HEADER on Contile (defaults to `X-Test-Location`)
 
 The load tests were written using
 [Molotov](https://molotov.readthedocs.io/en/stable/) and can be started using
