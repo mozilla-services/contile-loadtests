@@ -14,7 +14,7 @@ _TEST_FIREFOX_USER_AGENTS = [
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:10.0) Gecko/20100101 '
     'Firefox/91.0',
 
-    'Mozilla/5.0 (X11; Linux x86_64; rv:90.0) Gecko/20100101 Firefox/91.0',
+    'Mozilla/5.0 (X11; Linux x86_64; rv:90.0) Gecko/20100101 Firefox/90.0',
     'Mozilla/5.0 (Android 11; Mobile; rv:92.0) Gecko/92.0 Firefox/92.0',
     'Mozilla/5.0 (Android; Tablet; rv:92.0) Gecko/92.0 Firefox/92.0',
 
