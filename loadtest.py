@@ -34,19 +34,9 @@ _TEST_NON_FIREFOX_USER_AGENTS = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, '
     'like Gecko) Chrome/58.0.3029.110 Safari/537.36',
 
-    'Mozilla/5.0 (iPad; CPU OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 '
-    '(KHTML, like Gecko) Version/8.0 Mobile/12H321 Safari/600.1.4',
-
-    'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) '
-    'AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 '
-    'Safari/602.1',
-
     'Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG SM-G570Y Build/MMB29K) '
     'AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/4.0 '
     'Chrome/44.0.2403.133 Mobile Safari/537.36',
-
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_4) AppleWebKit/605.1.15 '
-    '(KHTML, like Gecko) Version/14.1 Safari/605.1.15',
 
     'Mozilla/5.0 (Linux; Android 8.0.0; SM-G960F Build/R16NW) '
     'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile '
@@ -64,7 +54,10 @@ _TEST_NON_FIREFOX_USER_AGENTS = [
     'like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246',
 
     'Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like '
-    'Gecko) Chrome/51.0.2704.64 Safari/537.36'
+    'Gecko) Chrome/51.0.2704.64 Safari/537.36',
+
+    'Opera/9.80 (Android; Opera Mini/6.5.27452/26.1305; U; ja) Presto/2.8.119 '
+    'Version/10.54'
 ]
 _TIMEOUT = float(os.environ.get('TIMEOUT', 5.0))
 
@@ -147,7 +140,7 @@ async def request_with_random_non_firefox_user_agent(session):
                            timeout=timeout) as resp:
         # Contile should send an empty response to a request from a non-Firefox
         # user agent
-        assert resp.status == 403
+        assert resp.status == 403, resp.status
 
 
 def get_random_location():
