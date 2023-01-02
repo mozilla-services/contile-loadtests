@@ -41,3 +41,4 @@ the tests.
 $ molotov -h
 ```
 
+test
